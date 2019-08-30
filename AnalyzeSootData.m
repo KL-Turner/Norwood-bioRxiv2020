@@ -34,6 +34,13 @@ for a = 1:length(animalIDs)
     disp(['Switching to ' dataLoc]); disp(' ')
     cd(dataLoc)
     
+    supplementalFileDirectory = dir('*_SupplementalData.mat');
+    supplementalFiles = {supplementalFileDirectory.name}';
+    supplementalFile = char(supplementalFiles);
+    load(supplementalFile)
+    
+    RunMotionTrackingPatch(supplementalFile)
+    
     resultsFileDirectory = dir('*_Results.mat');
     resultsFiles = {resultsFileDirectory.name}';
     resultsFile = char(resultsFiles);
