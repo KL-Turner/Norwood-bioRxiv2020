@@ -10,15 +10,6 @@
 clear; clc
 % load in ms excel file
 disp('Select the Microsoft Excel sheet with the soot experiment information'); disp(' ')
-sootDataFile = 'JK_SootExperiment_DataSheet2.xlsx';
-[~,~,allData] = xlsread(sootDataFile);
-curDir = cd;
-animalIDs = allData(2:end,1);
-driveLetters = allData(2:end,7);
-binWidth = 14;   % inches
-colorA = [(51/256),(160/256),(44/256)];   % rest color
-colorB = [(192/256),(0/256),(256/256)];   % NREM color
-colorC = [(255/256),(140/256),(0/256)];   % REM color
 
 % go through each animal and load the rearing/movement results
 for a = 1:length(animalIDs)

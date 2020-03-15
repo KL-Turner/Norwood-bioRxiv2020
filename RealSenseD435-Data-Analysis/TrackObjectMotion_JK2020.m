@@ -1,4 +1,4 @@
-function [] = TrackObjectMotion(binDepthStackFile,supplementalFile)
+function [] = TrackObjectMotion_JK2020(binDepthStackFile,supplementalFile)
 %________________________________________________________________________________________________________________________
 % Written by Kevin L. Turner
 % The Pennsylvania State University, Dept. of Biomedical Engineering
