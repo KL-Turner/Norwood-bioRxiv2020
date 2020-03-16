@@ -160,6 +160,7 @@ femaleScatter = scatter(0,NaN,'c','MarkerEdgeColor','k','MarkerFaceColor','w');
 axis square
 set(gca,'xtick',[])
 set(gca,'xticklabel',[])
+set(gca,'box','off')
 xlim([0,4])
 ylabel('Linked rearing events')
 ylim([0,350])
@@ -201,6 +202,7 @@ femaleScatter = scatter(0,NaN,'c','MarkerEdgeColor','k','MarkerFaceColor','w');
 axis square
 set(gca,'xtick',[])
 set(gca,'xticklabel',[])
+set(gca,'box','off')
 xlim([0,4])
 ylabel('Distance traveled (m)')
 ylim([0,55])

@@ -39,7 +39,7 @@ else
 end
 
 %% Individual figures can be re-run after the analysis has completed.
-
+SootSummaryFigure_JK2020(AnalysisResults)
 disp('MainScript Analysis - Complete'); disp(' ')
 
 end
@@ -72,14 +72,5 @@ for b = 1:length(animalIDs)
     end
     multiWaitbar_Manuscript2020('Tracking animal motion','Value',b/length(animalIDs));
 end
-
-% %% Block [1] Track the rearing events of each animal
-% runFromStart = 'n';
-% for a = 1:length(animalIDs)
-%     if isfield(AnalysisResults,(animalIDs{1,a})) == false || isfield(AnalysisResults.(animalIDs{1,a}),'Rearing') == false || strcmp(runFromStart,'y') == true 
-%         [AnalysisResults] = TrackAnimalHeight_JK2020(animalIDs{1,a},saveFigs,rootFolder,AnalysisResults);
-%     end
-%     multiWaitbar_Manuscript2020('Tracking animal rearing','Value',a/length(animalIDs));
-% end
 
 end
