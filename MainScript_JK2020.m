@@ -24,9 +24,10 @@ end
 addpath(genpath(rootFolder))
 
 %% Run the data analysis. The progress bars will show the analysis progress.
-dataSummary = dir('AnalysisResults.mat');
+dataSummary = dir('AnalnysisResults.mat');
+runFromStart = 'n';
 % If the analysis structure has already been created, load it and skip the analysis.
-if ~isempty(dataSummary)
+if ~isempty(dataSummary) && strcmp(runFromStart,'n') == true
     load(dataSummary.name);
     disp('Loading analysis results and generating figures...'); disp(' ')
 else

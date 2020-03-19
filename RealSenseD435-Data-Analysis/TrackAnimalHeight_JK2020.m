@@ -60,6 +60,32 @@ baseline = mean(descendPixelVals(1:ceil(length(adjustedHeight)*0.3)));
 positiveVals = adjustedHeight <= (baseline - threshHeight);
 changes = diff(positiveVals);
 AnalysisResults.(animalID).Rearing.rearingEvents = sum(ismember(changes,1));
+AnalysisResults.(animalID).Rearing.totalRearingTime = sum(positiveVals)*(1/SuppData.samplingRate);   % seconds
+% determine duration of each rearing event
+prevVal = 0;
+b = 1;
+rearingDurations{b,1} = [];
+for a = 1:length(positiveVals)
+    curVal = positiveVals(1,a);
+    if curVal == 0 && prevVal == 1
+        b = b + 1;
+        prevVal = 0;
+    elseif curVal == 1 && prevVal == 1
+        rearingDurations{b,1} = horzcat(rearingDurations{b,1},curVal);
+        prevVal = 1;
+    elseif curVal == 1
+        rearingDurations{b,1} = 1;
+        prevVal = 1;
+    elseif curVal == 0
+        prevVal = 0;
+    end
+end
+% sum up each event
+rearingDurationTimes = zeros(length(rearingDurations),1);
+for c = 1:length(rearingDurations)
+    rearingDurationTimes(c,1) = sum(rearingDurations{c,1})*(1/SuppData.samplingRate);
+end
+AnalysisResults.(animalID).Rearing.rearingDurations = rearingDurationTimes;
 % show summary figure
 if strcmp(saveFigs,'y') == true
     animalIDrep = strrep(animalID,'_',' ');

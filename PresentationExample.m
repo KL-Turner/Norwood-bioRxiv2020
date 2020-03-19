@@ -14,23 +14,22 @@
 %   Last Revised:
 %________________________________________________________________________________________________________________________
 
-clear
-clc
+clear; clc;
 
 % Animal Example is JK_soot051
-load('JK_soot051_15_Aug_2019_14_56_06_Binarize_B.mat')
+load('JK_soot098_20_Feb_2020_13_16_30_Binarize_C.mat')
 binStack = binImgStack(:,:,1:1000);
 
-load('JK_soot051_15_Aug_2019_14_56_06_ProcDepthStack_B.mat')
+load('JK_soot098_20_Feb_2020_13_16_30_ProcDepthStack_C.mat')
 procStack = procImgStack(:,:,1:1000);
 
-load('JK_soot051_15_Aug_2019_14_56_06_RGBStack.mat')
-rgbStack = RGBStack(6001:7000,1);
+load('JK_soot098_20_Feb_2020_13_16_30_RGBStack.mat')
+rgbStack = RGBStack(12001:13000,1);
 
-load('JK_soot051_15_Aug_2019_14_56_06_TrueDepthStack_B.mat')
-originalStack = depthStack_B(1:1000,1);
+load('JK_soot098_20_Feb_2020_13_16_30_TrueDepthStack_C.mat')
+originalStack = depthStack_C(1:1000,1);
 
-load('JK_soot051_15_Aug_2019_14_56_06_SupplementalData.mat')
+load('JK_soot098_20_Feb_2020_13_16_30_SupplementalData.mat')
 
 %% movie file comparing rgb with original data
 outputVideo = VideoWriter('PresentationMotionVideo_RGBvsOriginalDepth.avi');
