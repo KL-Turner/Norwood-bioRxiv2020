@@ -42,8 +42,8 @@ AnalysisResults.(animalID).Rearing.rawHeight = fliplr(100*rawHeight);
 AnalysisResults.(animalID).Rearing.avgHeight = fliplr(100*avgHeight);
 AnalysisResults.(animalID).Rearing.avg20Height = fliplr(100*avg20Height);
 % determine number of rearing events
-threshHeight = 3;   % cm
-mouseHeight = AnalysisResults.(animalID).Rearing.avg20Height';
+threshHeight = 8;   % cm
+mouseHeight = (AnalysisResults.(animalID).Rearing.avg20Height' - (maxVal*100))*-1;
 X = ~isnan(mouseHeight);
 Y = cumsum(X - diff([1,X])/2);
 adjustedHeight = interp1(1:nnz(X),mouseHeight(X),Y);
@@ -55,9 +55,8 @@ if sum(isnan(adjustedHeight)) > 0
     tempBaseline = mean(tempDescendPixelVals(1:ceil(length(realVals)*0.3)));
     adjustedHeight(nanInds) = tempBaseline;
 end
-descendPixelVals = sort(adjustedHeight(:),'descend');
-baseline = mean(descendPixelVals(1:ceil(length(adjustedHeight)*0.3)));
-positiveVals = adjustedHeight <= (baseline - threshHeight);
+baseline = 5;
+positiveVals = adjustedHeight >= threshHeight;
 changes = diff(positiveVals);
 AnalysisResults.(animalID).Rearing.rearingEvents = sum(ismember(changes,1));
 AnalysisResults.(animalID).Rearing.totalRearingTime = sum(positiveVals)*(1/SuppData.samplingRate);   % seconds
@@ -93,35 +92,34 @@ if strcmp(saveFigs,'y') == true
     sgtitle([animalIDrep ' rearing events'])
     % comparison of different height thresholds
     subplot(2,1,1)
-    plot((1:length(rawHeight))/SuppData.samplingRate,fliplr(100*rawHeight),'color',colors_JK2020('sapphire'))
+    plot((1:length(AnalysisResults.(animalID).Rearing.rawHeight))/SuppData.samplingRate,fliplr(AnalysisResults.(animalID).Rearing.rawHeight),'color',colors_JK2020('sapphire'))
     hold on
-    plot((1:length(avgHeight))/SuppData.samplingRate,fliplr(100*avgHeight),'color',colors_JK2020('dark candy apple red'))
-    plot((1:length(avg20Height))/SuppData.samplingRate,fliplr(100*avg20Height),'color',colors_JK2020('vegas gold'))
+    plot((1:length(AnalysisResults.(animalID).Rearing.avgHeight))/SuppData.samplingRate,fliplr(AnalysisResults.(animalID).Rearing.avgHeight),'color',colors_JK2020('dark candy apple red'))
+    plot((1:length(AnalysisResults.(animalID).Rearing.avg20Height))/SuppData.samplingRate,fliplr(AnalysisResults.(animalID).Rearing.avg20Height),'color',colors_JK2020('vegas gold'))
     set(gca,'YDir','reverse')
     title('Animal''s distance from camera')
-    ylabel('Distance (cm)')
+    ylabel('Distance from camera (cm)')
     xlabel('~Time (sec)')
     legend('Min pixel value','Mean of all valid pixels','Mean of bottom 20% of valid pixels')
     set(gca,'box','off')
     % number of rearing events based on calculated baseline and chosen elevation threshold
     subplot(2,1,2)
-    negativeVals = adjustedHeight > (baseline - threshHeight);
+    negativeVals = adjustedHeight < threshHeight;
     yVals = zeros(length(positiveVals),1);
-    yVals(positiveVals) = min(AnalysisResults.(animalID).Rearing.avg20Height) - 1;
+    yVals(positiveVals) = max(adjustedHeight) + 1;
     yVals(negativeVals) = NaN;
     p1 = [baseline,1];
     p2 = [baseline,1200];
-    p3 = [baseline - threshHeight,1];
-    p4 = [baseline - threshHeight,1200];
+    p3 = [threshHeight,1];
+    p4 = [threshHeight,1200];
     plot((1:length(adjustedHeight))/SuppData.samplingRate,adjustedHeight,'color',colors_JK2020('vegas gold'))
     hold on
     scatter((1:length(yVals))/SuppData.samplingRate,yVals,'MarkerEdgeColor','k','MarkerFaceColor',colors_JK2020('electric purple'))
     plot([p1(2),p2(2)],[p1(1),p2(1)],'color','k','LineWidth',2)
     plot([p3(2),p4(2)],[p3(1),p4(1)],'color',colors_JK2020('electric purple'),'LineWidth',2)
-    set(gca,'YDir','reverse')
-    ylabel('Distance (cm)')
-    xlabel('~Time (sec)')
-    legend('Mean of bottom 20% of valid pixels','Positive events')
+    ylabel('Mouse height (cm)')
+    xlabel('~Time (s)')
+    legend('Mean of top 20% of valid pixels','Positive events')
     set(gca,'box','off')
     % save figure
     [pathstr,~,~] = fileparts(cd);
