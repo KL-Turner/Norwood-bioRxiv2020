@@ -15,32 +15,32 @@ load('JK_soot098_20_Feb_2020_13_16_30_ProcDepthStack_C.mat')
 procStack = procImgStack(:,:,1:1000);
 load('JK_soot098_20_Feb_2020_13_16_30_RGBStack.mat')
 rgbStack = RGBStack(12001:13000,1);
-% load('JK_soot098_20_Feb_2020_13_16_30_TrueDepthStack_C.mat')
-% originalStack = depthStack_C(1:1000,1);
+load('JK_soot098_20_Feb_2020_13_16_30_TrueDepthStack_C.mat')
+originalStack = depthStack_C(1:1000,1);
 load('JK_soot098_20_Feb_2020_13_16_30_SupplementalData.mat')
-% %% movie file comparing rgb with original data
-% outputVideo = VideoWriter('RGBvsOriginalDepth.avi');
-% fps = 15;   % default fps from video acquisition
-% speedUp = 2;   % speed up by factor of
-% outputVideo.FrameRate = fps*speedUp;
-% open(outputVideo);
-% fig = figure('Position',get(0,'Screensize'));
-% for a = 1:size(rgbStack,1)
-%     subplot(1,2,1)
-%     imshow(rgbStack{a,1})
-%     subplot(1,2,2)
-%     imagesc(originalStack{a,1});
-%     colormap jet
-%     caxis([0,.52])
-%     axis image
-%     axis off
-%     currentFrame = getframe(fig);
-%     writeVideo(outputVideo, currentFrame);
-% end
-% close(outputVideo)
-% close(fig)
+%% movie file comparing rgb with original data
+outputVideo = VideoWriter('Supplemental_Movie_1.avi');
+fps = 15;   % default fps from video acquisition
+speedUp = 2;   % speed up by factor of
+outputVideo.FrameRate = fps*speedUp;
+open(outputVideo);
+fig = figure('Position',get(0,'Screensize'));
+for a = 1:size(rgbStack,1)
+    subplot(1,2,1)
+    imshow(rgbStack{a,1})
+    subplot(1,2,2)
+    imagesc(originalStack{a,1});
+    colormap jet
+    caxis([0,.52])
+    axis image
+    axis off
+    currentFrame = getframe(fig);
+    writeVideo(outputVideo,currentFrame);
+end
+close(outputVideo)
+close(fig)
 %% movie file comparing rgb with processed data
-outputVideo = VideoWriter('RGBvsProcDepth.avi');
+outputVideo = VideoWriter('Supplemental_Movie_2.avi');
 fps = 15;   % default fps from video acquisition
 speedUp = 2;   % speed up by factor of
 outputVideo.FrameRate = fps*speedUp;
@@ -53,7 +53,8 @@ for a = 1:size(rgbStack,1)
     image = (100.*procStack(:,:,a) - 100*SuppData.caxis(2)).*-1;
     imagesc(image);
     colormap jet
-    c = caxis([0,12]);
+    caxis([0,12]);
+    c = colorbar;
     ylabel(c,'Mouse height (cm)')
     axis image
     axis off
@@ -63,7 +64,7 @@ end
 close(outputVideo)
 close(fig)
 %% movie file showing motion and height tracking
-outputVideo = VideoWriter('TrackingExample.avi');
+outputVideo = VideoWriter('Supplemental_Movie_3.avi');
 fps = 15;   % default fps from video acquisition
 speedUp = 2;   % speed up by factor of
 outputVideo.FrameRate = fps*speedUp;
@@ -111,7 +112,8 @@ for a = 1:size(binStack,3)
     image = (100.*procStack(:,:,a) - 100*SuppData.caxis(2)).*-1;
     imagesc(image);
     colormap jet
-    c = caxis([0,12]);
+    caxis([0,12]);
+    c = colorbar;
     ylabel(c,'Mouse height (cm)')
     axis image
     axis off
