@@ -205,7 +205,7 @@ set(gca,'xticklabel',[])
 set(gca,'box','off')
 xlim([0,4])
 ylabel('Total rearing time (s)')
-ylim([0,600])
+ylim([0,450])
 % rearing event durations
 subplot(1,3,3)
 edges = 0:0.5:3;
