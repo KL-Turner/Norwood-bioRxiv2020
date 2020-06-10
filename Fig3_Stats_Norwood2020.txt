@@ -1,0 +1,140 @@
+======================================================================================================================
+[3a] Generalized linear mixed-effects model statistics for rearing events following soot treatment
+======================================================================================================================
+
+<strong>Generalized linear mixed-effects model fit by PL</strong>
+
+<strong>Model information:</strong>
+    Number of observations              26
+    Fixed effects coefficients           3
+    Random effects coefficients         28
+    Covariance parameters                3
+    Distribution                    Normal
+    Link                            Identity
+    FitMethod                       MPL   
+
+<strong>Formula:</strong>
+    Events ~ 1 + Treatment + (1 | Mouse) + (1 | Sex)
+
+<strong>Model fit statistics:</strong>
+    AIC       BIC       LogLikelihood    Deviance
+    303.19    310.74    -145.59          291.19  
+
+<strong>Fixed effects coefficients (95% CIs):</strong>
+    Name                           Estimate    SE        tStat       DF    pValue       Lower      Upper 
+    {'(Intercept)'        }         173.49     39.325      4.4116    23    0.0002018     92.136    254.84
+    {'Treatment_Soot2040' }        -15.068      29.58    -0.50938    23      0.61534    -76.259    46.124
+    {'Treatment_Soot2040F'}         13.395     27.591     0.48548    23      0.63193    -43.681    70.471
+
+<strong>Random effects covariance parameters:</strong>
+Group: Mouse (26 Levels)
+    Name1                  Name2                  Type           Estimate
+    {'(Intercept)'}        {'(Intercept)'}        {'std'}        41.263  
+
+Group: Sex (2 Levels)
+    Name1                  Name2                  Type           Estimate
+    {'(Intercept)'}        {'(Intercept)'}        {'std'}        48.606  
+
+Group: Error
+    Name                        Estimate
+    {'sqrt(Dispersion)'}        43.573  
+
+----------------------------------------------------------------------------------------------------------------------
+Alpha = 0.001 confidence interval with 3 comparisons to 'Rest' (Intercept): 
+Water: 79.19       267.783
+Soot2040: -85.9976      55.8624
+Soot2040F: -52.7648      79.5546
+======================================================================================================================
+[3b] Generalized linear mixed-effects model statistics for rearing duration following soot treatment
+======================================================================================================================
+
+<strong>Generalized linear mixed-effects model fit by PL</strong>
+
+<strong>Model information:</strong>
+    Number of observations              26
+    Fixed effects coefficients           3
+    Random effects coefficients         28
+    Covariance parameters                3
+    Distribution                    Normal
+    Link                            Identity
+    FitMethod                       MPL   
+
+<strong>Formula:</strong>
+    Duration ~ 1 + Treatment + (1 | Mouse) + (1 | Sex)
+
+<strong>Model fit statistics:</strong>
+    AIC       BIC       LogLikelihood    Deviance
+    314.77    322.32    -151.39          302.77  
+
+<strong>Fixed effects coefficients (95% CIs):</strong>
+    Name                           Estimate    SE        tStat        DF    pValue       Lower      Upper 
+    {'(Intercept)'        }         206.37     55.118       3.7441    23    0.0010597     92.348    320.39
+    {'Treatment_Soot2040' }        -2.5769     36.554    -0.070497    23      0.94441    -78.194     73.04
+    {'Treatment_Soot2040F'}          34.21     34.096       1.0033    23      0.32613    -36.322    104.74
+
+<strong>Random effects covariance parameters:</strong>
+Group: Mouse (26 Levels)
+    Name1                  Name2                  Type           Estimate
+    {'(Intercept)'}        {'(Intercept)'}        {'std'}        49.257  
+
+Group: Sex (2 Levels)
+    Name1                  Name2                  Type           Estimate
+    {'(Intercept)'}        {'(Intercept)'}        {'std'}        70.429  
+
+Group: Error
+    Name                        Estimate
+    {'sqrt(Dispersion)'}        55.434  
+
+----------------------------------------------------------------------------------------------------------------------
+Alpha = 0.05 confidence interval with 3 comparisons to 'Rest' (Intercept): 
+Water: 74.20215      338.5364
+Soot2040: -90.2282      85.0743
+Soot2040F: -47.54741      115.9673
+======================================================================================================================
+======================================================================================================================
+[3d] Generalized linear mixed-effects model statistics for distance traveled following soot treatment
+======================================================================================================================
+
+<strong>Generalized linear mixed-effects model fit by PL</strong>
+
+<strong>Model information:</strong>
+    Number of observations              26
+    Fixed effects coefficients           3
+    Random effects coefficients         28
+    Covariance parameters                3
+    Distribution                    Normal
+    Link                            Identity
+    FitMethod                       MPL   
+
+<strong>Formula:</strong>
+    Distance ~ 1 + Treatment + (1 | Mouse) + (1 | Sex)
+
+<strong>Model fit statistics:</strong>
+    AIC       BIC       LogLikelihood    Deviance
+    194.39    201.94    -91.197          182.39  
+
+<strong>Fixed effects coefficients (95% CIs):</strong>
+    Name                           Estimate    SE        tStat      DF    pValue        Lower      Upper    
+    {'(Intercept)'        }          35.75     3.9432     9.0661    23    4.7003e-09     27.593       43.907
+    {'Treatment_Soot2040' }        -9.2251     3.7302    -2.4731    23      0.021215    -16.942      -1.5086
+    {'Treatment_Soot2040F'}        -7.1962     3.4792    -2.0683    23      0.050031    -14.394    0.0010756
+
+<strong>Random effects covariance parameters:</strong>
+Group: Mouse (26 Levels)
+    Name1                  Name2                  Type           Estimate
+    {'(Intercept)'}        {'(Intercept)'}        {'std'}        5.5501  
+
+Group: Sex (2 Levels)
+    Name1                  Name2                  Type           Estimate
+    {'(Intercept)'}        {'(Intercept)'}        {'std'}        4.4156  
+
+Group: Error
+    Name                        Estimate
+    {'sqrt(Dispersion)'}        5.1446  
+
+----------------------------------------------------------------------------------------------------------------------
+Alpha = 0.05 confidence interval with 2 comparisons to 'Untreated' (Intercept): 
+Water: 26.2945      45.2053
+Soot2040: -18.1698    -0.280541
+Soot2040F: -15.539      1.14649
+======================================================================================================================

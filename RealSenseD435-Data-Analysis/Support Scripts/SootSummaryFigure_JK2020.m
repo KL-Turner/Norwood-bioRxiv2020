@@ -211,9 +211,9 @@ ylim([0,450])
 % rearing event durations
 subplot(2,2,3)
 edges = 0:0.5:3;
-[curve1] = SmoothHistogramBins_Manuscript2020(waterAllRearingDurations,edges);
-[curve2] = SmoothHistogramBins_Manuscript2020(sootAllRearingDurations,edges);
-[curve3] = SmoothHistogramBins_Manuscript2020(funcSootAllRearingDurations,edges);
+[curve1] = SmoothHistogramBins_JK2020(waterAllRearingDurations,edges);
+[curve2] = SmoothHistogramBins_JK2020(sootAllRearingDurations,edges);
+[curve3] = SmoothHistogramBins_JK2020(funcSootAllRearingDurations,edges);
 before = findall(gca);
 fnplt(curve1);
 added = setdiff(findall(gca),before);

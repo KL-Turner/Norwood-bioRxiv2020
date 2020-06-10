@@ -31,11 +31,11 @@ if ~isempty(dataSummary) && strcmp(runFromStart,'n') == true
     load(dataSummary.name);
     disp('Loading analysis results and generating figures...'); disp(' ')
 else
-    multiWaitbar_JK2020('Tracking animal rearing',0,'Color','K'); pause(0.25);
-    multiWaitbar_JK2020('Tracking animal motion',0,'Color','K'); pause(0.25);
+    multiWaitbar_Manuscrip2020('Tracking animal rearing',0,'Color','K'); pause(0.25);
+    multiWaitbar_Manuscript2020('Tracking animal motion',0,'Color','K'); pause(0.25);
     % Run analysis and output a structure containing all the analyzed data.
     [AnalysisResults] = AnalyzeData_JK2020(rootFolder);
-    multiWaitbar_JK2020('CloseAll');
+    multiWaitbar_Manuscript2020('CloseAll');
 end
 
 %% Individual figures can be re-run after the analysis has completed.
@@ -61,7 +61,7 @@ for a = 1:length(animalIDs)
     if isfield(AnalysisResults,(animalIDs{a,1})) == false || isfield(AnalysisResults.(animalIDs{a,1}),'Rearing') == false || strcmp(runFromStart,'y') == true 
         [AnalysisResults] = TrackAnimalHeight_JK2020(animalIDs{a,1},saveFigs,rootFolder,AnalysisResults);
     end
-    multiWaitbar_JK2020('Tracking animal rearing','Value',a/length(animalIDs));
+    multiWaitbar_Manuscript2020('Tracking animal rearing','Value',a/length(animalIDs));
 end
 
 %% Block [2] Track the rearing events of each animal
@@ -70,7 +70,7 @@ for b = 1:length(animalIDs)
     if isfield(AnalysisResults,(animalIDs{b,1})) == false || isfield(AnalysisResults.(animalIDs{b,1}),'Distance') == false || strcmp(runFromStart,'y') == true 
         [AnalysisResults] = TrackAnimalMotion_JK2020(animalIDs{b,1},saveFigs,rootFolder,AnalysisResults);
     end
-    multiWaitbar_JK2020('Tracking animal motion','Value',b/length(animalIDs));
+    multiWaitbar_Manuscript2020('Tracking animal motion','Value',b/length(animalIDs));
 end
 
 end
