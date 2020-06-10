@@ -10,7 +10,7 @@ function [] = MainScript_JK2020()
 %         and RealSenseD435-Data-Analysis. 
 %________________________________________________________________________________________________________________________
 
-clear; clc;
+clear; clc; close all;
 %% Make sure the current directory is 'Norwood_Turner_Drew_JK2020' and that the code repository is present.
 currentFolder = pwd;
 addpath(genpath(currentFolder));
@@ -33,7 +33,6 @@ if ~isempty(dataSummary) && strcmp(runFromStart,'n') == true
 else
     multiWaitbar_Manuscript2020('Tracking animal rearing',0,'Color','K'); pause(0.25);
     multiWaitbar_Manuscript2020('Tracking animal motion',0,'Color','K'); pause(0.25);
-    multiWaitbar_Manuscript2020('Creating presentation video',0,'Color','K'); pause(0.25);
     % Run analysis and output a structure containing all the analyzed data.
     [AnalysisResults] = AnalyzeData_JK2020(rootFolder);
     multiWaitbar_Manuscript2020('CloseAll');

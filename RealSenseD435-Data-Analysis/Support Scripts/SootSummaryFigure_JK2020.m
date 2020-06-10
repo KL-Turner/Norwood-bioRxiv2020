@@ -5,7 +5,7 @@ function [] = SootSummaryFigure_JK2020(AnalysisResults)
 % https://github.com/KL-Turner
 %________________________________________________________________________________________________________________________
 %
-% Purpose: create a summary figure showing differences in rearing and distance traveled between treatment conditions
+% Purpose: create a summary figure (3) showing differences in rearing and distance traveled between treatment conditions
 %________________________________________________________________________________________________________________________
 
 %% get file animal treament information
@@ -38,7 +38,7 @@ for bb = 1:length(rearingEvents)
         waterRearingTime(cc1,1) = rearingTime{bb,1};
         waterRearingDurations{cc1,1} = rearingDurations{bb,1};
         waterDistance(cc1,1) = distanceTraveled{bb,1};
-        waterDistancePath{cc1,1} = distancePath{bb,1}; 
+%         waterDistancePath{cc1,1} = distancePath{bb,1}; 
         waterSex{cc1,1} = allData{bb + 1,3};
         waterTreatments{cc1,1} = 'H2O';
         cc1 = cc1 + 1 ;
@@ -48,7 +48,7 @@ for bb = 1:length(rearingEvents)
         sootRearingTime(cc2,1) = rearingTime{bb,1};
         sootRearingDurations{cc2,1} = rearingDurations{bb,1};
         sootDistance(cc2,1) = distanceTraveled{bb,1};
-        sootDistancePath{cc2,1} = distancePath{bb,1}; 
+%         sootDistancePath{cc2,1} = distancePath{bb,1}; 
         sootSex{cc2,1} = allData{bb + 1,3};
         sootTreatments{cc2,1} = 'Soot2040';
         cc2 = cc2 + 1;
@@ -58,7 +58,7 @@ for bb = 1:length(rearingEvents)
         funcSootRearingTime(cc3,1) = rearingTime{bb,1};
         funcSootRearingDurations{cc3,1} = rearingDurations{bb,1};
         funcSootDistance(cc3,1) = distanceTraveled{bb,1};
-        funcSootDistancePath{cc3,1} = distancePath{bb,1}; 
+%         funcSootDistancePath{cc3,1} = distancePath{bb,1}; 
         funcSootSex{cc3,1} = allData{bb + 1,3};
         funcSootTreatments{cc3,1} = 'Soot2040F';
         cc3 = cc3 + 1;
@@ -73,7 +73,7 @@ waterRearingTime_StErr = std(waterRearingTime)/sqrt(length(waterRearingTime));
 waterAllRearingDurations = cell2mat(waterRearingDurations);
 waterDistance_mean = mean(waterDistance);
 waterDistance_StErr = std(waterDistance)/sqrt(length(waterDistance));
-waterDistancePath_mean = mean(cell2mat(waterDistancePath),1);
+% waterDistancePath_mean = mean(cell2mat(waterDistancePath),1);
 waterXinds = ones(length(waterRearingEvents),1);
 % soot
 sootRearingEvents_mean = mean(sootRearingEvents);
@@ -83,7 +83,7 @@ sootRearingTime_StErr = std(sootRearingTime)/sqrt(length(sootRearingTime));
 sootAllRearingDurations = cell2mat(sootRearingDurations);
 sootDistance_mean = mean(sootDistance);
 sootDistance_StErr = std(sootDistance)/sqrt(length(sootDistance));
-sootDistancePath_mean = mean(cell2mat(sootDistancePath),1);
+% sootDistancePath_mean = mean(cell2mat(sootDistancePath),1);
 sootXinds = ones(length(sootRearingEvents),1);
 % functionalized soot
 funcSootRearingEvents_mean = mean(funcSootRearingEvents);
@@ -93,7 +93,7 @@ funcSootRearingTime_StErr = std(funcSootRearingTime)/sqrt(length(funcSootRearing
 funcSootAllRearingDurations = cell2mat(funcSootRearingDurations);
 funcSootDistance_mean = mean(funcSootDistance);
 funcSootDistance_StErr = std(funcSootDistance)/sqrt(length(funcSootDistance));
-funcSootDistancePath_mean = mean(cell2mat(funcSootDistancePath),1);
+% funcSootDistancePath_mean = mean(cell2mat(funcSootDistancePath),1);
 funcSootXinds = ones(length(funcSootRearingEvents),1);
 %% statistics - linear mixed effects model
 % rearing event stats
@@ -125,8 +125,8 @@ distanceStats = fitglme(distanceTraveledTable,distanceFitFormula);
 distanceCI = coefCI(distanceStats,'Alpha',.025);
 %% summary figure
 % rearing events
-figure;
-subplot(1,3,1);
+summaryFigure = figure;
+subplot(2,2,1);
 for dd = 1:length(waterRearingEvents)
     if strcmp(waterSex{dd,1},'Male') == true
         scatter(waterXinds(dd,1).*1,waterRearingEvents(dd,1),100,'s','MarkerEdgeColor','k','MarkerFaceColor',colorA,'jitter','on','jitterAmount',0.25);
@@ -165,10 +165,11 @@ set(gca,'xticklabel',[])
 set(gca,'box','off')
 xlim([0,4])
 ylabel('Linked rearing events')
+title('[3a] rearing events')
 ylim([0,350])
 legend([e1,e2,e3,maleScatter,femaleScatter],'H2O','Soot2040','Soot2040F','Male','Female')
 % rearing time
-subplot(1,3,2);
+subplot(2,2,2);
 for gg = 1:length(waterRearingTime)
     if strcmp(waterSex{gg,1},'Male') == true
         scatter(waterXinds(gg,1).*1,waterRearingTime(gg,1),100,'s','MarkerEdgeColor','k','MarkerFaceColor',colorA,'jitter','on','jitterAmount',0.25);
@@ -205,9 +206,10 @@ set(gca,'xticklabel',[])
 set(gca,'box','off')
 xlim([0,4])
 ylabel('Total rearing time (s)')
+title('[3b] rearing duration')
 ylim([0,450])
 % rearing event durations
-subplot(1,3,3)
+subplot(2,2,3)
 edges = 0:0.5:3;
 [curve1] = SmoothHistogramBins_Manuscript2020(waterAllRearingDurations,edges);
 [curve2] = SmoothHistogramBins_Manuscript2020(sootAllRearingDurations,edges);
@@ -227,13 +229,12 @@ added = setdiff(findall(gca),before);
 set(added,'Color',colorC)
 xlabel('Rearing duration (s)')
 ylabel('Probability')
+title('[3c] rearing events duration')
 axis square
 set(gca,'box','off')
 axis tight
-%% summary figure
-% distance path
-figure;
-subplot(1,2,1);
+% distance traveled
+subplot(2,2,4);
 for dd = 1:length(waterDistance)
     if strcmp(waterSex{dd,1},'Male') == true
         scatter(waterXinds(dd,1).*1,waterDistance(dd,1),100,'s','MarkerEdgeColor','k','MarkerFaceColor',colorA,'jitter','on','jitterAmount',0.25);
@@ -264,44 +265,57 @@ for ff = 1:length(funcSootDistance)
 end
 e3 = errorbar(3,funcSootDistance_mean,funcSootDistance_StErr,'d','MarkerSize',10,'MarkerEdgeColor','k','MarkerFaceColor',colorC);
 e3.Color = 'black';
-maleScatter = scatter(0,NaN,'s','MarkerEdgeColor','k','MarkerFaceColor','w');
-femaleScatter = scatter(0,NaN,'c','MarkerEdgeColor','k','MarkerFaceColor','w');
 axis square
 set(gca,'xtick',[])
 set(gca,'xticklabel',[])
 set(gca,'box','off')
 xlim([0,4])
 ylabel('Distance traveled (m)')
+title('[3d] distance traveled')
 ylim([0,55])
-legend([e1,e2,e3,maleScatter,femaleScatter],'H2O','Soot2040','Soot2040F','Male','Female')
-% distance traveled
-samplingRate = 15;   % Hz
-duration = 20*60*samplingRate;   % min*sec
-timeVec = (1:duration)/samplingRate;
-subplot(1,2,2);
-% H2O control
-for jj = 1:size(waterDistancePath,1)
-    plot(timeVec,waterDistancePath{jj,1},'color',colorA,'LineWidth',0.5)
-    hold on
+%% save figure(s)
+savefig(summaryFigure,'Fig3_Norwood2020');
+set(summaryFigure,'PaperPositionMode','auto');
+print('-painters','-dpdf','-fillpage','Fig3_Norwood2020')
+%% statistical diary
+diaryFile = 'Fig3_Stats_Norwood2020.txt';
+if exist(diaryFile,'file') == 2
+    delete(diaryFile)
 end
-% Soot2040
-for kk = 1:size(sootDistancePath,1)
-    plot(timeVec,sootDistancePath{kk,1},'color',colorB,'LineWidth',0.5)
-    hold on
-end
-% Soot2040F
-for ll = 1:size(funcSootDistancePath,1)
-    plot(timeVec,funcSootDistancePath{ll,1},'color',colorC,'LineWidth',0.5)
-    hold on
-end
-% Means
-plot(timeVec,waterDistancePath_mean,'color',colorA,'LineWidth',5);
-plot(timeVec,sootDistancePath_mean,'color',colorB,'LineWidth',5);
-plot(timeVec,funcSootDistancePath_mean,'color',colorC,'LineWidth',5);
-axis square
-set(gca,'box','off')
-xlabel('Time (s)')
-ylabel('Distance traveled (m)')
-ylim([0,55])
+diary(diaryFile)
+diary on
+% HbT statistical diary
+disp('======================================================================================================================')
+disp('[3a] Generalized linear mixed-effects model statistics for rearing events following soot treatment')
+disp('======================================================================================================================')
+disp(rearingStats)
+disp('----------------------------------------------------------------------------------------------------------------------')
+disp('Alpha = 0.001 confidence interval with 3 comparisons to ''Rest'' (Intercept): ')
+disp(['Water: ' num2str(rearingCI(1,:))])
+disp(['Soot2040: ' num2str(rearingCI(2,:))])
+disp(['Soot2040F: ' num2str(rearingCI(3,:))])
+% gamma statistical diary
+disp('======================================================================================================================')
+disp('[3b] Generalized linear mixed-effects model statistics for rearing duration following soot treatment')
+disp('======================================================================================================================')
+disp(durationStats)
+disp('----------------------------------------------------------------------------------------------------------------------')
+disp('Alpha = 0.05 confidence interval with 3 comparisons to ''Rest'' (Intercept): ')
+disp(['Water: ' num2str(durationCI(1,:))])
+disp(['Soot2040: ' num2str(durationCI(2,:))])
+disp(['Soot2040F: ' num2str(durationCI(3,:))])
+disp('======================================================================================================================')
+% gamma statistical diary
+disp('======================================================================================================================')
+disp('[3d] Generalized linear mixed-effects model statistics for distance traveled following soot treatment')
+disp('======================================================================================================================')
+disp(distanceStats)
+disp('----------------------------------------------------------------------------------------------------------------------')
+disp('Alpha = 0.05 confidence interval with 2 comparisons to ''Untreated'' (Intercept): ')
+disp(['Water: ' num2str(distanceCI(1,:))])
+disp(['Soot2040: ' num2str(distanceCI(2,:))])
+disp(['Soot2040F: ' num2str(distanceCI(3,:))])
+disp('======================================================================================================================')
+diary off
 
 end
