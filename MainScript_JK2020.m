@@ -24,7 +24,7 @@ end
 addpath(genpath(rootFolder))
 
 %% Run the data analysis. The progress bars will show the analysis progress.
-dataSummary = dir('AnalnysisResults.mat');
+dataSummary = dir('AnalysisResults.mat');
 runFromStart = 'n';
 % If the analysis structure has already been created, load it and skip the analysis.
 if ~isempty(dataSummary) && strcmp(runFromStart,'n') == true
@@ -49,7 +49,7 @@ sootDataFile = 'SootExperimentDataSheet.xlsx';
 [~,~,allData] = xlsread(sootDataFile);
 animalIDs = allData(2:end,1);
 saveFigs = 'y';
-if exist('AnalysisResults.mat') == 2
+if exist('AnalysisResults.mat','file') == 2
     load('AnalysisResults.mat')
 else
     AnalysisResults = [];
