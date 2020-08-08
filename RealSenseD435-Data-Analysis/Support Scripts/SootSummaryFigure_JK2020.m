@@ -290,20 +290,12 @@ disp('[3a] Generalized linear mixed-effects model statistics for rearing events 
 disp('======================================================================================================================')
 disp(rearingStats)
 disp('----------------------------------------------------------------------------------------------------------------------')
-disp('Alpha = 0.001 confidence interval with 3 comparisons to ''Rest'' (Intercept): ')
-disp(['Water: ' num2str(rearingCI(1,:))])
-disp(['Soot2040: ' num2str(rearingCI(2,:))])
-disp(['Soot2040F: ' num2str(rearingCI(3,:))])
 % gamma statistical diary
 disp('======================================================================================================================')
 disp('[3b] Generalized linear mixed-effects model statistics for rearing duration following soot treatment')
 disp('======================================================================================================================')
 disp(durationStats)
 disp('----------------------------------------------------------------------------------------------------------------------')
-disp('Alpha = 0.05 confidence interval with 3 comparisons to ''Rest'' (Intercept): ')
-disp(['Water: ' num2str(durationCI(1,:))])
-disp(['Soot2040: ' num2str(durationCI(2,:))])
-disp(['Soot2040F: ' num2str(durationCI(3,:))])
 disp('======================================================================================================================')
 % gamma statistical diary
 disp('======================================================================================================================')
@@ -311,11 +303,6 @@ disp('[3d] Generalized linear mixed-effects model statistics for distance travel
 disp('======================================================================================================================')
 disp(distanceStats)
 disp('----------------------------------------------------------------------------------------------------------------------')
-disp('Alpha = 0.05 confidence interval with 2 comparisons to ''Untreated'' (Intercept): ')
-disp(['Water: ' num2str(distanceCI(1,:))])
-disp(['Soot2040: ' num2str(distanceCI(2,:))])
-disp(['Soot2040F: ' num2str(distanceCI(3,:))])
-disp('======================================================================================================================')
 diary off
 
 end
